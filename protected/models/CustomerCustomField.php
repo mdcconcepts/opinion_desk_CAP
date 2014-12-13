@@ -49,6 +49,8 @@ class CustomerCustomField extends CActiveRecord {
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
+            'Field_Category' => array(self::BELONGS_TO, 'FieldCategoryTable', 'field_category_id'),
+            'CustomerCustomFieldAssignment' => array(self::HAS_ONE, 'CustomerCustomFieldAssignmentTable', 'customer_custom_field_id'),
         );
     }
 

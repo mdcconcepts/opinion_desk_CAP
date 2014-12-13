@@ -1,19 +1,20 @@
 <?php
 
 /**
- * This is the model class for table "field_category_table".
+ * This is the model class for table "customer_custom_field_assignment_table".
  *
- * The followings are the available columns in table 'field_category_table':
+ * The followings are the available columns in table 'customer_custom_field_assignment_table':
  * @property integer $id
- * @property string $field_category
+ * @property integer $customer_custom_field_id
+ * @property integer $user_id
  */
-class FieldCategoryTable extends CActiveRecord {
+class CustomerCustomFieldAssignmentTable extends CActiveRecord {
 
     /**
      * @return string the associated database table name
      */
     public function tableName() {
-        return 'field_category_table';
+        return 'customer_custom_field_assignment_table';
     }
 
     /**
@@ -23,8 +24,8 @@ class FieldCategoryTable extends CActiveRecord {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('field_category', 'required'),
-            array('field_category', 'length', 'max' => 40),
+            array('customer_custom_field_id, user_id', 'required'),
+            array('customer_custom_field_id, user_id', 'numerical', 'integerOnly' => true),
             /*
               //Example username
               array('username', 'match', 'pattern' => '/^[A-Za-z0-9_]+$/u',
@@ -34,7 +35,7 @@ class FieldCategoryTable extends CActiveRecord {
              */
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
-            array('id, field_category', 'safe', 'on' => 'search'),
+            array('id, customer_custom_field_id, user_id', 'safe', 'on' => 'search'),
         );
     }
 
@@ -45,7 +46,7 @@ class FieldCategoryTable extends CActiveRecord {
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-            'Customer_Custom_Fields' => array(self::HAS_MANY, 'CustomerCustomField', 'field_category_id'),
+            'Customer_Custom_Fields' => array(self::BELONGS_TO, 'CustomerCustomField', 'customer_custom_field_id'),
         );
     }
 
@@ -55,7 +56,8 @@ class FieldCategoryTable extends CActiveRecord {
     public function attributeLabels() {
         return array(
             'id' => 'ID',
-            'field_category' => 'Field Category',
+            'customer_custom_field_id' => 'Customer Custom Field',
+            'user_id' => 'User',
         );
     }
 
@@ -77,7 +79,8 @@ class FieldCategoryTable extends CActiveRecord {
         $criteria = new CDbCriteria;
 
         $criteria->compare('id', $this->id);
-        $criteria->compare('field_category', $this->field_category, true);
+        $criteria->compare('customer_custom_field_id', $this->customer_custom_field_id);
+        $criteria->compare('user_id', $this->user_id);
 
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
@@ -88,7 +91,7 @@ class FieldCategoryTable extends CActiveRecord {
      * Returns the static model of the specified AR class.
      * Please note that you should have this exact method in all your CActiveRecord descendants!
      * @param string $className active record class name.
-     * @return FieldCategoryTable the static model class
+     * @return CustomerCustomFieldAssignmentTable the static model class
      */
     public static function model($className = __CLASS__) {
         return parent::model($className);
