@@ -1,0 +1,14 @@
+[19-Jun-2014 09:53:38 UTC] PHP Warning:  include_once(class.smtp.php): failed to open stream: No such file or directory in /home/mdcconcepts/public_html/sendmail/PHPMailer-FE_v4.1/_lib/class.phpmailer.php on line 515
+[19-Jun-2014 09:53:38 UTC] PHP Warning:  include_once(): Failed opening 'class.smtp.php' for inclusion (include_path='.:/usr/lib/php:/usr/local/lib/php') in /home/mdcconcepts/public_html/sendmail/PHPMailer-FE_v4.1/_lib/class.phpmailer.php on line 515
+[19-Jun-2014 09:53:38 UTC] PHP Fatal error:  Class 'SMTP' not found in /home/mdcconcepts/public_html/sendmail/PHPMailer-FE_v4.1/_lib/class.phpmailer.php on line 583
+[19-Jun-2014 09:53:41 UTC] PHP Warning:  include_once(class.smtp.php): failed to open stream: No such file or directory in /home/mdcconcepts/public_html/sendmail/PHPMailer-FE_v4.1/_lib/class.phpmailer.php on line 515
+[19-Jun-2014 09:53:41 UTC] PHP Warning:  include_once(): Failed opening 'class.smtp.php' for inclusion (include_path='.:/usr/lib/php:/usr/local/lib/php') in /home/mdcconcepts/public_html/sendmail/PHPMailer-FE_v4.1/_lib/class.phpmailer.php on line 515
+[19-Jun-2014 09:53:41 UTC] PHP Fatal error:  Class 'SMTP' not found in /home/mdcconcepts/public_html/sendmail/PHPMailer-FE_v4.1/_lib/class.phpmailer.php on line 583
+[19-Jun-2014 09:54:41 UTC] PHP Deprecated:  Function eregi() is deprecated in /home/mdcconcepts/public_html/sendmail/PHPMailer-FE_v4.1/_lib/class.phpmailer.php on line 594
+[19-Jun-2014 09:54:48 UTC] PHP Deprecated:  Function eregi() is deprecated in /home/mdcconcepts/public_html/sendmail/PHPMailer-FE_v4.1/_lib/class.phpmailer.php on line 594
+[19-Jun-2014 09:56:17 UTC] PHP Deprecated:  Function split() is deprecated in /home/mdcconcepts/public_html/sendmail/PHPMailer-FE_v4.1/_lib/class.phpmailer.php on line 472
+[19-Jun-2014 09:56:23 UTC] PHP Deprecated:  Function split() is deprecated in /home/mdcconcepts/public_html/sendmail/PHPMailer-FE_v4.1/_lib/class.phpmailer.php on line 472
+[19-Jun-2014 09:57:04 UTC] PHP Deprecated:  Function split() is deprecated in /home/mdcconcepts/public_html/sendmail/PHPMailer-FE_v4.1/_lib/class.phpmailer.php on line 472
+[19-Jun-2014 10:05:00 UTC] PHP Deprecated:  Function eregi() is deprecated in /home/mdcconcepts/public_html/sendmail/PHPMailer-FE_v4.1/_lib/class.phpmailer.php on line 594
+[19-Jun-2014 10:05:08 UTC] PHP Deprecated:  Function eregi() is deprecated in /home/mdcconcepts/public_html/sendmail/PHPMailer-FE_v4.1/_lib/class.phpmailer.php on line 594
+[19-Jun-2014 10:10:11 UTC] PHP Fatal error:  Call to undefined method PHPMailer::SetFrom() in /home/mdcconcepts/public_html/sendmail/PHPMailer-FE_v4.1/_lib/sendmail.php on line 24
