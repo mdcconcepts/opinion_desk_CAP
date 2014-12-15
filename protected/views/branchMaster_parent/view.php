@@ -1,5 +1,4 @@
 <?php
-
 /* @var $this BranchMaster_parentController */
 /* @var $model BranchMaster */
 
@@ -27,7 +26,6 @@ $menu2 = array(
 if (!isset($_GET['asModal'])) {
     ?>
     <?php
-
     $box = $this->beginWidget(
             'bootstrap.widgets.TbBox', array(
         'title' => 'View Branch Masters #' . $model->id,
@@ -44,12 +42,10 @@ if (!isset($_GET['asModal'])) {
     );
     ?>
     <?php
-
 }
 ?>
 
 <?php
-
 $this->widget('bootstrap.widgets.TbAlert', array(
     'block' => false, // display a larger alert block?
     'fade' => true, // use transitions?
@@ -64,7 +60,6 @@ $this->widget('bootstrap.widgets.TbAlert', array(
 ));
 ?>		
 <?php
-
 $this->widget('bootstrap.widgets.TbDetailView', array(
     'data' => $model,
     'attributes' => array(
@@ -92,8 +87,100 @@ $this->widget('bootstrap.widgets.TbDetailView', array(
 ?>
 
 <?php
-
 if (!isset($_GET['asModal'])) {
     $this->endWidget();
 }
 ?>
+<h2>Overview</h2>
+<h3>Report For Overall Period</h3>
+<p>How are your customer feel today?</p>
+<strong>Total Feedback : <b> <?php echo BranchDashboard_helper::getTotalFeedBackCountForBranches('2013-08-29', '2015-08-29', $model->id); ?></b></strong>
+<br/>
+<strong>Total Average Feedback : <b> <?php echo BranchDashboard_helper::getTotalFeedBackAverageForBranches('2013-08-29', '2015-08-29', $model->id); ?></b></strong>
+<br/>
+<strong>Total Positive Feedback : <b> <?php echo BranchDashboard_helper::getPositiveFeedbackForBranches('2013-08-29', '2015-08-29', $model->id); ?></b></strong>
+<br/>
+<strong>Total Negative Feedback : <b> <?php echo BranchDashboard_helper::getNegativeFeedbackForBranches('2013-08-29', '2015-08-29', $model->id); ?></b></strong>
+
+<h3>Report For Customer Analysis</h3>
+
+<strong>Total Customer : <b> <?php echo BranchDashboard_helper::getTotalCustomerForBranches('2013-08-29', '2015-08-29', $model->id); ?></b></strong>
+<br/>
+<strong>Total Male Customer: <b> <?php echo BranchDashboard_helper::getTotalMALECustomerForBranches('2013-08-29', '2015-08-29', $model->id); ?></b></strong>
+<br/>
+<strong>Total female Customer : <b> <?php echo BranchDashboard_helper::getTotalFEMALECustomerForBranches('2013-08-29', '2015-08-29', $model->id); ?></b></strong>
+<br/>
+<strong>Customer Age Bounds</strong>
+<table style="border: 1px;">
+    <tr>
+        <th>
+            Ageband
+        </th>
+        <th>
+            Total Customer
+        </th>
+    </tr>
+
+    <?php BranchDashboard_helper::getAgeBoundsForCustomerForBranches('2013-08-29', '2015-08-29', $model->id); ?>
+</table>
+<div  style="float: left;padding: 30px">
+    <strong>Visitor Feedback Yearly</strong>
+    <table style="border: 1px;">
+        <tr>
+            <th>
+                year
+            </th>
+            <th>
+                Total Visits
+            </th>
+        </tr>
+
+        <?php BranchDashboard_helper::getYearlyReportForBranch($model->id); ?>
+    </table>
+</div>
+<div  style="float: left;padding: 30px">
+    <strong>Visitor Feedback Monthly</strong>
+    <table style="border: 1px;">
+        <tr>
+            <th>
+                Month
+            </th>
+            <th>
+                Total Visits
+            </th>
+        </tr>
+
+        <?php BranchDashboard_helper::getMonthlyReportForBranch($model->id); ?>
+    </table>
+</div>
+<div  style="float: left;padding: 30px">
+    <strong>Visitor Feedback Weekly</strong>
+    <table style="border: 1px;">
+        <tr>
+            <th>
+                Week
+            </th>
+            <th>
+                Total Visits
+            </th>
+        </tr>
+
+        <?php BranchDashboard_helper::getWeeklyReportForBranch($model->id); ?>
+    </table>
+</div>
+<div style="clear: both;"></div>
+<div  style="padding: 30px">
+    <strong>Category Wise Reports</strong>
+    <table style="border: 1px;">
+        <tr>
+            <th>
+                Category
+            </th>
+            <th>
+                Total Count
+            </th>
+        </tr>
+
+        <?php BranchDashboard_helper::getCategoryWiseReportForBranch($model->id); ?>
+    </table>
+</div>

@@ -59,6 +59,7 @@ class QuestionMaster extends CActiveRecord {
             'QuestionMaster' => array(self::HAS_ONE, 'BranchMaster', 'id'),
             'QuestionMaster' => array(self::HAS_ONE, 'OptionType', 'id'),
             'QuestionMaster' => array(self::HAS_ONE, 'CategoryMaster', 'id'),
+            'QuestionMaster' => array(self::HAS_MANY, 'ResponceMaster', 'question_id'),
         );
     }
 

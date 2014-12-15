@@ -32,3 +32,38 @@ $this->pageTitle = Yii::app()->name;
 //$customer_custom_field_assignment = CustomerCustomFieldAssignmentTable::model()->findByPk(1);
 //echo $customer_custom_field = $customer_custom_field_assignment->Customer_Custom_Fields->Field_Category->field_category;
 ?>
+<h2>Overview</h2>
+<h3>Report For Overall Period</h3>
+<p>How are your customer feel today?</p>
+<strong>Total Feedback : <b> <?php echo Dashboard_helper::getTotalFeedBackCountForAllBranches('2013-08-29', '2015-08-29'); ?></b></strong>
+<br/>
+<strong>Total Average Feedback : <b> <?php echo Dashboard_helper::getTotalFeedBackAverageForAllBranches('2013-08-29', '2015-08-29'); ?></b></strong>
+<br/>
+<strong>Total Positive Feedback : <b> <?php echo Dashboard_helper::getPositiveFeedbackForAllBranches('2013-08-29', '2015-08-29'); ?></b></strong>
+<br/>
+<strong>Total Negative Feedback : <b> <?php echo Dashboard_helper::getNegativeFeedbackForAllBranches('2013-08-29', '2015-08-29'); ?></b></strong>
+
+<h3>Report For Customer Analysis</h3>
+
+<strong>Total Customer : <b> <?php echo Dashboard_helper::getTotalCustomerForAllBranches('2013-08-29', '2015-08-29'); ?></b></strong>
+<br/>
+<strong>Total Male Customer: <b> <?php echo Dashboard_helper::getTotalMALECustomerForAllBranches('2013-08-29', '2015-08-29'); ?></b></strong>
+<br/>
+<strong>Total female Customer : <b> <?php echo Dashboard_helper::getTotalFEMALECustomerForAllBranches('2013-08-29', '2015-08-29'); ?></b></strong>
+<br/>
+<strong>Customer Age Bounds</strong>
+<table style="border: 1px;">
+    <tr>
+        <th>
+            Ageband
+        </th>
+        <th>
+            Total Customer
+        </th>
+    </tr>
+    
+    <?php Dashboard_helper::getAgeBoundsForCustomerForAllBranches('2013-08-29', '2015-08-29'); ?>
+</table>
+
+
+

@@ -134,33 +134,33 @@ $this->widget('bootstrap.widgets.TbGridView', array(
       // 'value' => '@Admin::model()->findByPk($data->createdBy)->username',
       ),
      */
-//        array(
-//            'class' => 'bootstrap.widgets.TbButtonColumn',
-//            'template' => '{view} {detail}',
-//            'buttons' => array
-//                (
-//                'view' => array
-//                    (
-//                    'url' => '$data->id."|".$data->question',
-//                    'click' => 'function(){
-//                		data=$(this).attr("href").split("|")
-//                		$("#myModalHeader").html(data[1]);
-//	        			$("#myModalBody").load("' . $this->createUrl('view') . '&id="+data[0]+"&asModal=true");
-//                		$("#myModal").modal();
-//                		return false;
-//                	}',
-//                ),
-//                'detail' => array
-//                    (
-//                    'label' => 'View data under this data',
-//                    'icon' => 'fa fa-level-down',
-//                    'url' => 'array("view","id"=>$data->id)',
-//                    'options' => array(
-//                        'class' => 'badge badge-info',
-//                    ),
-//                ),
-//            )
-//        ),
+        array(
+            'class' => 'bootstrap.widgets.TbButtonColumn',
+            'template' => '{view} {detail}',
+            'buttons' => array
+                (
+                'view' => array
+                    (
+                    'url' => '$data->id."|".$data->question',
+                    'click' => 'function(){
+                		data=$(this).attr("href").split("|")
+                		$("#myModalHeader").html(data[1]);
+	        			$("#myModalBody").load("' . $this->createUrl('view') . '&id="+data[0]+"&asModal=true");
+                		$("#myModal").modal();
+                		return false;
+                	}',
+                ),
+                'detail' => array
+                    (
+                    'label' => 'View data under this data',
+                    'icon' => 'fa fa-level-down',
+                    'url' => 'array("view","id"=>$data->id)',
+                    'options' => array(
+                        'class' => 'badge badge-info',
+                    ),
+                ),
+            )
+        ),
     ),
 ));
 ?>
