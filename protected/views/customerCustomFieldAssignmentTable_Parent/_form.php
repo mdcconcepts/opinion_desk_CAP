@@ -15,7 +15,8 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 <?php echo $form->errorSummary($model); ?>
 
 <?php
-$list = CHtml::listData(CustomerCustomField::model()->findAllByAttributes(array('lob_id' => '1', 'is_reference_field' => '0')), 'id', 'field_name');
+$LoB = Profile::model()->findAllByAttributes(array('user_id' => Yii::app()->user->id));
+$list = CHtml::listData(CustomerCustomField::model()->findAllByAttributes(array('lob_id' => $LoB)), 'id', 'field_name');
 echo $form->dropDownList($model, 'customer_custom_field_id', $list);
 ?>
 <input style="display:none" class="span5" value="<?php echo Yii::app()->user->id; ?>" name="CustomerCustomFieldAssignmentTable[user_id]" id="CustomerCustomFieldAssignmentTable_user_id" type="text">

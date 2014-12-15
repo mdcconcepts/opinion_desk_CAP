@@ -1,5 +1,5 @@
 <?php
-/* @var $this CustomerCustomFieldAssignmentTableController */
+/* @var $this CustomerCustomFieldAssignmentTable_ParentController */
 /* @var $dataProvider CActiveDataProvider */
 
 $this->breadcrumbs = array(
@@ -83,7 +83,7 @@ $this->widget('bootstrap.widgets.TbAlert', array(
 <?php
 $this->widget('bootstrap.widgets.TbGridView', array(
     'id' => 'customer-custom-field-assignment-table-grid',
-    'dataProvider' => $model->search(),
+    'dataProvider' => $model->getDataFromPK($pId),
     'filter' => $model,
     'type' => 'striped hover', //bordered condensed
     'columns' => array(
@@ -116,7 +116,7 @@ $this->widget('bootstrap.widgets.TbGridView', array(
          */
         array(
             'class' => 'bootstrap.widgets.TbButtonColumn',
-            'template' => '{view}',
+            'template' => '{view} {detail}',
             'buttons' => array
                 (
                 'view' => array
@@ -129,6 +129,15 @@ $this->widget('bootstrap.widgets.TbGridView', array(
                 		$("#myModal").modal();
                 		return false;
                 	}',
+                ),
+                'detail' => array
+                    (
+                    'label' => 'View data under this data',
+                    'icon' => 'fa fa-level-down',
+                    'url' => 'array("view","id"=>$data->id)',
+                    'options' => array(
+                        'class' => 'badge badge-info',
+                    ),
                 ),
             )
         ),

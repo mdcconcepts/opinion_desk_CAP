@@ -21,5 +21,6 @@ $menu = array(
         )),
     array('label' => 'Customer Admin', 'url' => array('/user/admin'), 'icon' => 'fa fa-list', 'visible' => (Yii::app()->user->name == 'admin' ) ? true : false, 'active' => ($currController == 'user' and $currAction == 'admin' )),
     array('label' => 'My Branches', 'url' => array('/branchMaster_parent'), 'icon' => 'fa fa-briefcase', 'active' => ($currController == 'branchMaster' and $currAction == '' )),
+    array('label' => 'Custom Client Data', 'url' => array('/customerCustomFieldAssignmentTable_Parent'), 'icon' => 'fa fa-briefcase', 'active' => ($currController == 'customerCustomFieldAssignmentTable' and $currAction == '' )),
 );
 ?>	

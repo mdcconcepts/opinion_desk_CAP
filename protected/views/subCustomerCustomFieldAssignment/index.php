@@ -1,15 +1,15 @@
 <?php
-/* @var $this CustomerCustomFieldAssignmentTableController */
+/* @var $this SubCustomerCustomFieldAssignmentController */
 /* @var $dataProvider CActiveDataProvider */
 
 $this->breadcrumbs = array(
-    'Customer Custom Field Assignment Tables',
+    'Sub Customer Custom Field Assignments',
 );
 
 $menu = array();
 require(dirname(__FILE__) . DIRECTORY_SEPARATOR . '_menu.php');
 $this->menu = array(
-    array('label' => 'CustomerCustomFieldAssignmentTable', 'url' => array('index'), 'icon' => 'fa fa-list-alt', 'items' => $menu)
+    array('label' => 'SubCustomerCustomFieldAssignment', 'url' => array('index'), 'icon' => 'fa fa-list-alt', 'items' => $menu)
 );
 
 Yii::app()->clientScript->registerScript('search', "
@@ -18,7 +18,7 @@ Yii::app()->clientScript->registerScript('search', "
 		return false;
 	});
 	$('.search-form form').submit(function(){
-		$.fn.yiiGridView.update('customer-custom-field-assignment-table-grid', {
+		$.fn.yiiGridView.update('sub-customer-custom-field-assignment-grid', {
 			data: $(this).serialize()
 		});
 		return false;
@@ -27,14 +27,14 @@ Yii::app()->clientScript->registerScript('search', "
 
 Yii::app()->clientScript->registerScript('refreshGridView', "
 	// automatically refresh grid on 5 seconds
-	//setInterval(\"$.fn.yiiGridView.update('customer-custom-field-assignment-table-grid')\",5000);
+	//setInterval(\"$.fn.yiiGridView.update('sub-customer-custom-field-assignment-grid')\",5000);
 ");
 ?>
 
 <?php
 $box = $this->beginWidget(
         'bootstrap.widgets.TbBox', array(
-    'title' => 'List Customer Custom Field Assignment Tables',
+    'title' => 'List Sub Customer Custom Field Assignments',
     'headerIcon' => 'icon- fa fa-list-ol',
     'headerButtons' => array(
         array(
@@ -70,7 +70,7 @@ $this->widget('bootstrap.widgets.TbAlert', array(
     or <b>=</b>) at the beginning of each of your search values to specify how the comparison should be done.
 </p>
 
-<?php echo CHtml::link('Advanced Search', '#', array('class' => 'search-button btn')); ?>
+    <?php echo CHtml::link('Advanced Search', '#', array('class' => 'search-button btn')); ?>
 <div class="search-form" style="display:none">
     <?php
     $this->renderPartial('_search', array(
@@ -82,8 +82,8 @@ $this->widget('bootstrap.widgets.TbAlert', array(
 <?php echo CHtml::beginForm(array('export')); ?>
 <?php
 $this->widget('bootstrap.widgets.TbGridView', array(
-    'id' => 'customer-custom-field-assignment-table-grid',
-    'dataProvider' => $model->search(),
+    'id' => 'sub-customer-custom-field-assignment-grid',
+    'dataProvider' => $model->getDataFromPK($pId),
     'filter' => $model,
     'type' => 'striped hover', //bordered condensed
     'columns' => array(
@@ -94,15 +94,15 @@ $this->widget('bootstrap.widgets.TbGridView', array(
             'htmlOptions' => array('style' => 'width: 25px; text-align:center;'),
         ),
         array(
-            'name' => 'customer_custom_field_id',
-            'value' => '($data->Customer_Custom_Fields->field_name)',
+            'name' => 'value',
+            'value' => '($data->value)',
             'headerHtmlOptions' => array('style' => 'text-align:center;'),
         ),
-//        array(
-//            'name' => 'user_id',
-//            'value' => '($data->user_id)',
-//            'headerHtmlOptions' => array('style' => 'text-align:center;'),
-//        ),
+        array(
+            'name' => 'customer_custom_field_assignment_id',
+            'value' => '($data->customer_custom_field_assignment_id)',
+            'headerHtmlOptions' => array('style' => 'text-align:center;'),
+        ),
         /*
           //Contoh
           array(
@@ -121,7 +121,7 @@ $this->widget('bootstrap.widgets.TbGridView', array(
                 (
                 'view' => array
                     (
-                    'url' => '$data->id."|".$data->customer_custom_field_id',
+                    'url' => '$data->id."|".$data->value',
                     'click' => 'function(){
                 		data=$(this).attr("href").split("|")
                 		$("#myModalHeader").html(data[1]);

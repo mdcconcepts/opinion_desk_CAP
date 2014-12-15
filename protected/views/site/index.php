@@ -19,6 +19,9 @@ $this->pageTitle = Yii::app()->name;
     Feel free to ask in the <a href="http://www.yiiframework.com/forum/">forum</a>,
     should you have any questions.</p>
 <?php
+//$field_category_name = SubCustomerCustomFieldAssignment::model()->findAllByAttributes(array('customer_custom_field_assignment_id' =>  3));
+//
+//echo json_encode(var_dump($field_category_name));
 //$customercustomfield = CustomerCustomField::model()->findByPk(1);
 //
 //echo $field_category_name = $customercustomfield->Field_Category->field_category;

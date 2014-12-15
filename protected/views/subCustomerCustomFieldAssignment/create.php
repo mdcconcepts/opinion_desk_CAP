@@ -1,17 +1,17 @@
 <?php
 
-/* @var $this CustomerCustomFieldAssignmentTableController */
-/* @var $model CustomerCustomFieldAssignmentTable */
+/* @var $this SubCustomerCustomFieldAssignmentController */
+/* @var $model SubCustomerCustomFieldAssignment */
 
 $this->breadcrumbs = array(
-    'Customer Custom Field Assignment Tables' => array('index'),
+    'Sub Customer Custom Field Assignments' => array('index'),
     'Create',
 );
 
 $menu = array();
 require(dirname(__FILE__) . DIRECTORY_SEPARATOR . '_menu.php');
 $this->menu = array(
-    array('label' => 'CustomerCustomFieldAssignmentTable', 'url' => array('index'), 'icon' => 'fa fa-list-alt', 'items' => $menu)
+    array('label' => 'SubCustomerCustomFieldAssignment', 'url' => array('index'), 'icon' => 'fa fa-list-alt', 'items' => $menu)
 );
 ?>
 
@@ -19,7 +19,7 @@ $this->menu = array(
 
 $box = $this->beginWidget(
         'bootstrap.widgets.TbBox', array(
-    'title' => 'Create Customer Custom Field Assignment Tables',
+    'title' => 'Create Sub Customer Custom Field Assignments',
     'headerIcon' => 'icon- fa fa-plus-circle',
     'headerButtons' => array(
         array(
@@ -47,5 +47,5 @@ $this->widget('bootstrap.widgets.TbAlert', array(
     ),
 ));
 ?>		
-<?php echo $this->renderPartial('_form', array('model' => $model)); ?>
-<?php $this->endWidget(); ?>
+<?php echo $this->renderPartial('_form', array('model' => $model, 'pId' => $pId)); ?>
+<?php $this->endWidget();?>

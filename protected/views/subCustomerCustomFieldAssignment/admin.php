@@ -1,41 +1,37 @@
 <?php
-/* @var $this CustomerCustomFieldAssignmentTableController */
-/* @var $dataProvider CActiveDataProvider */
+/* @var $this SubCustomerCustomFieldAssignmentController */
+/* @var $model SubCustomerCustomFieldAssignment */
 
 $this->breadcrumbs = array(
-    'Customer Custom Field Assignment Tables',
+    'Sub Customer Custom Field Assignments' => array('index'),
+    'Manage',
 );
 
 $menu = array();
 require(dirname(__FILE__) . DIRECTORY_SEPARATOR . '_menu.php');
 $this->menu = array(
-    array('label' => 'CustomerCustomFieldAssignmentTable', 'url' => array('index'), 'icon' => 'fa fa-list-alt', 'items' => $menu)
+    array('label' => 'SubCustomerCustomFieldAssignment', 'url' => array('index'), 'icon' => 'fa fa-list-alt', 'items' => $menu)
 );
 
 Yii::app()->clientScript->registerScript('search', "
-	$('.search-button').click(function(){
-		$('.search-form').toggle();
-		return false;
+$('.search-button').click(function(){
+	$('.search-form').toggle();
+	return false;
+});
+$('.search-form form').submit(function(){
+	$('#sub-customer-custom-field-assignment-grid').yiiGridView('update', {
+		data: $(this).serialize()
 	});
-	$('.search-form form').submit(function(){
-		$.fn.yiiGridView.update('customer-custom-field-assignment-table-grid', {
-			data: $(this).serialize()
-		});
-		return false;
-	});
-");
-
-Yii::app()->clientScript->registerScript('refreshGridView', "
-	// automatically refresh grid on 5 seconds
-	//setInterval(\"$.fn.yiiGridView.update('customer-custom-field-assignment-table-grid')\",5000);
+	return false;
+});
 ");
 ?>
 
 <?php
 $box = $this->beginWidget(
         'bootstrap.widgets.TbBox', array(
-    'title' => 'List Customer Custom Field Assignment Tables',
-    'headerIcon' => 'icon- fa fa-list-ol',
+    'title' => 'Manage Sub Customer Custom Field Assignments',
+    'headerIcon' => 'icon- fa fa-tasks',
     'headerButtons' => array(
         array(
             'class' => 'bootstrap.widgets.TbButtonGroup',
@@ -46,12 +42,7 @@ $box = $this->beginWidget(
     )
         )
 );
-?>
-<?php /** $this->widget('bootstrap.widgets.TbListView',array(
-  'dataProvider'=>$dataProvider,
-  'itemView'=>'_view',
-  )); * */ ?>
-<?php
+?>		<?php
 $this->widget('bootstrap.widgets.TbAlert', array(
     'block' => false, // display a larger alert block?
     'fade' => true, // use transitions?
@@ -64,7 +55,8 @@ $this->widget('bootstrap.widgets.TbAlert', array(
         'danger' => array('block' => true, 'fade' => true, 'closeText' => '&times;'), //success, info, warning, error or danger
     ),
 ));
-?><p>
+?>
+<p>
     You may optionally enter a comparison operator (<b>&lt;</b>, <b>&lt;=</b>, <b>&gt;</b>, <b>&gt;=</b>, <b>
         &lt;&gt;</b>
     or <b>=</b>) at the beginning of each of your search values to specify how the comparison should be done.
@@ -82,27 +74,35 @@ $this->widget('bootstrap.widgets.TbAlert', array(
 <?php echo CHtml::beginForm(array('export')); ?>
 <?php
 $this->widget('bootstrap.widgets.TbGridView', array(
-    'id' => 'customer-custom-field-assignment-table-grid',
-    'dataProvider' => $model->search(),
+    'id' => 'sub-customer-custom-field-assignment-grid',
+    'dataProvider' => $model->getDataFromPK($pId),
     'filter' => $model,
     'type' => 'striped hover', //bordered condensed
     'columns' => array(
         array('header' => 'No', 'value' => '($this->grid->dataProvider->pagination->currentPage*
 					 $this->grid->dataProvider->pagination->pageSize
-					)+
-					array_search($data,$this->grid->dataProvider->getData())+1',
+					)+ ($row+1)',
             'htmlOptions' => array('style' => 'width: 25px; text-align:center;'),
         ),
         array(
-            'name' => 'customer_custom_field_id',
-            'value' => '($data->Customer_Custom_Fields->field_name)',
-            'headerHtmlOptions' => array('style' => 'text-align:center;'),
+            'header' => 'Value',
+            'name' => 'value',
+            'type' => 'raw',
+            'value' => '($data->value)',
+            'class' => 'bootstrap.widgets.TbEditableColumn',
+            'headerHtmlOptions' => array('style' => 'text-align:center'),
+            'editable' => array(
+                'type' => 'textarea',
+                'url' => $this->createUrl('editable'),
+                'params' => array('YII_CSRF_TOKEN' => Yii::app()->request->csrfToken),
+            )
         ),
-//        array(
-//            'name' => 'user_id',
-//            'value' => '($data->user_id)',
-//            'headerHtmlOptions' => array('style' => 'text-align:center;'),
-//        ),
+        array(
+            'header' => 'Customer_custom_field_assignment_id',
+            'name' => 'customer_custom_field_assignment_id',
+            'type' => 'raw',
+            'value' => '($data->customer_custom_field_assignment_id)',
+        ),
         /*
           //Contoh
           array(
@@ -111,17 +111,15 @@ $this->widget('bootstrap.widgets.TbGridView', array(
           'type'=>'raw',
           'value' => '($data->Level->name)',
           // 'value' => '($data->status)?"on":"off"',
-          // 'value' => '@Admin::model()->findByPk($data->createdBy)->username',
           ),
          */
         array(
             'class' => 'bootstrap.widgets.TbButtonColumn',
-            'template' => '{view}',
             'buttons' => array
                 (
                 'view' => array
                     (
-                    'url' => '$data->id."|".$data->customer_custom_field_id',
+                    'url' => '$data->id."|".$data->value',
                     'click' => 'function(){
                 		data=$(this).attr("href").split("|")
                 		$("#myModalHeader").html(data[1]);
@@ -150,6 +148,39 @@ $this->widget('bootstrap.widgets.TbButton', array(
     'buttonType' => 'submit', 'icon' => 'fa fa-print', 'label' => 'Export', 'type' => 'primary'));
 ?>
 <?php echo CHtml::endForm(); ?>
+<?php
+$box = $this->beginWidget(
+        'bootstrap.widgets.TbBox', array(
+    'title' => 'Import Data',
+    'htmlOptions' => array('style' => 'width:25%; text-align:center;margin-top:-100px', 'class' => 'pull-right'),
+        )
+);
+?>
+<?php
+$form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
+    'id' => 'import-admin-form',
+    'type' => 'inline',
+    'enableAjaxValidation' => false,
+    'htmlOptions' => array(
+        'enctype' => 'multipart/form-data',
+    ),
+    'action' => $this->createUrl('import'), //<- your form action here
+        ));
+?>
+<?php echo $form->fileFieldRow($model, 'fileImport'); ?> 
+<?php
+$this->widget('bootstrap.widgets.TbButton', array(
+    'buttonType' => 'submit',
+    'type' => 'primary',
+    'label' => 'Import',
+    'icon' => 'fa fa-download'
+));
+?>
+<br>
+(file type permitted: xls, xlsx, ods only)
+<?php $this->endWidget(); ?>
+<?php $this->endWidget(); ?>
+
 <?php $this->endWidget(); ?>
 <?php
 $this->beginWidget(

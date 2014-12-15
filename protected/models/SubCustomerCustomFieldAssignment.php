@@ -1,20 +1,20 @@
 <?php
 
 /**
- * This is the model class for table "customer_custom_field_assignment_table".
+ * This is the model class for table "sub_customer_custom_field_assignment".
  *
- * The followings are the available columns in table 'customer_custom_field_assignment_table':
+ * The followings are the available columns in table 'sub_customer_custom_field_assignment':
  * @property integer $id
- * @property integer $customer_custom_field_id
- * @property integer $user_id
+ * @property string $value
+ * @property integer $customer_custom_field_assignment_id
  */
-class CustomerCustomFieldAssignmentTable extends CActiveRecord {
+class SubCustomerCustomFieldAssignment extends CActiveRecord {
 
     /**
      * @return string the associated database table name
      */
     public function tableName() {
-        return 'customer_custom_field_assignment_table';
+        return 'sub_customer_custom_field_assignment';
     }
 
     /**
@@ -24,8 +24,9 @@ class CustomerCustomFieldAssignmentTable extends CActiveRecord {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('customer_custom_field_id, user_id', 'required'),
-            array('customer_custom_field_id, user_id', 'numerical', 'integerOnly' => true),
+            array('value, customer_custom_field_assignment_id', 'required'),
+            array('customer_custom_field_assignment_id', 'numerical', 'integerOnly' => true),
+            array('value', 'length', 'max' => 45),
             /*
               //Example username
               array('username', 'match', 'pattern' => '/^[A-Za-z0-9_]+$/u',
@@ -35,7 +36,7 @@ class CustomerCustomFieldAssignmentTable extends CActiveRecord {
              */
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
-            array('id, customer_custom_field_id, user_id', 'safe', 'on' => 'search'),
+            array('id, value, customer_custom_field_assignment_id', 'safe', 'on' => 'search'),
         );
     }
 
@@ -46,8 +47,7 @@ class CustomerCustomFieldAssignmentTable extends CActiveRecord {
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-            'Customer_Custom_Fields' => array(self::BELONGS_TO, 'CustomerCustomField', 'customer_custom_field_id'),
-            'sub_data_field' => array(self::HAS_MANY, 'SubCustomerCustomFieldAssignment', 'customer_custom_field_assignment_id'),
+            'sub_data_field' => array(self::BELONGS_TO, 'CustomerCustomFieldAssignmentTable', 'customer_custom_field_assignment_id'),
         );
     }
 
@@ -57,8 +57,8 @@ class CustomerCustomFieldAssignmentTable extends CActiveRecord {
     public function attributeLabels() {
         return array(
             'id' => 'ID',
-            'customer_custom_field_id' => 'Customer Custom Field',
-            'user_id' => 'User',
+            'value' => 'Value',
+            'customer_custom_field_assignment_id' => 'Customer Custom Field Assignment',
         );
     }
 
@@ -80,8 +80,8 @@ class CustomerCustomFieldAssignmentTable extends CActiveRecord {
         $criteria = new CDbCriteria;
 
         $criteria->compare('id', $this->id);
-        $criteria->compare('customer_custom_field_id', $this->customer_custom_field_id);
-        $criteria->compare('user_id', $this->user_id);
+        $criteria->compare('value', $this->value, true);
+        $criteria->compare('customer_custom_field_assignment_id', $this->customer_custom_field_assignment_id);
 
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
@@ -92,7 +92,7 @@ class CustomerCustomFieldAssignmentTable extends CActiveRecord {
      * Returns the static model of the specified AR class.
      * Please note that you should have this exact method in all your CActiveRecord descendants!
      * @param string $className active record class name.
-     * @return CustomerCustomFieldAssignmentTable the static model class
+     * @return SubCustomerCustomFieldAssignment the static model class
      */
     public static function model($className = __CLASS__) {
         return parent::model($className);
@@ -141,10 +141,9 @@ class CustomerCustomFieldAssignmentTable extends CActiveRecord {
         return $scope;
     }
 
-    public function getDataFromPK() {
-        $user_id = Yii::app()->user->id;
+    public function getDataFromPK($pId) {
         $criteria = new CDbCriteria;
-        $criteria->condition = "user_id=" . $user_id;
+        $criteria->condition = "customer_custom_field_assignment_id=" . $pId;
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
         ));
