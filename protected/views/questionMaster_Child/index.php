@@ -83,7 +83,7 @@ $this->widget('bootstrap.widgets.TbAlert', array(
 <?php
 $this->widget('bootstrap.widgets.TbGridView', array(
     'id' => 'question-master-grid',
-    'dataProvider' => $model->search(),
+    'dataProvider' => $model->getDataFromPK($pId),
     'filter' => $model,
     'type' => 'striped hover', //bordered condensed
     'columns' => array(
@@ -123,17 +123,17 @@ $this->widget('bootstrap.widgets.TbGridView', array(
             'value' => '($data->branch_id)',
             'headerHtmlOptions' => array('style' => 'text-align:center;'),
         ),
-    /*
-      //Contoh
-      array(
-      'header' => 'Level',
-      'name'=> 'ref_level_id',
-      'type'=>'raw',
-      'value' => '($data->Level->name)',
-      // 'value' => '($data->status)?"on":"off"',
-      // 'value' => '@Admin::model()->findByPk($data->createdBy)->username',
-      ),
-     */
+        /*
+          //Contoh
+          array(
+          'header' => 'Level',
+          'name'=> 'ref_level_id',
+          'type'=>'raw',
+          'value' => '($data->Level->name)',
+          // 'value' => '($data->status)?"on":"off"',
+          // 'value' => '@Admin::model()->findByPk($data->createdBy)->username',
+          ),
+         */
         array(
             'class' => 'bootstrap.widgets.TbButtonColumn',
             'template' => '{view} {detail}',

@@ -75,7 +75,7 @@ $this->widget('bootstrap.widgets.TbAlert', array(
 <?php
 $this->widget('bootstrap.widgets.TbGridView', array(
     'id' => 'question-master-grid',
-    'dataProvider' => $model->search(),
+    'dataProvider' => $model->getDataFromPK($pId),
     'filter' => $model,
     'type' => 'striped hover', //bordered condensed
     'columns' => array(

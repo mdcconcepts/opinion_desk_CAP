@@ -1,20 +1,23 @@
 <?php
 
 /**
- * This is the model class for table "customer_custom_field_assignment_table".
+ * This is the model class for table "client_master".
  *
- * The followings are the available columns in table 'customer_custom_field_assignment_table':
- * @property integer $id
- * @property integer $customer_custom_field_id
- * @property integer $user_id
+ * The followings are the available columns in table 'client_master':
+ * @property integer $client_id
+ * @property string $name
+ * @property string $mobile_no
+ * @property integer $gender
+ * @property string $dob
+ * @property string $created_at
  */
-class CustomerCustomFieldAssignmentTable extends CActiveRecord {
+class ClientMaster extends CActiveRecord {
 
     /**
      * @return string the associated database table name
      */
     public function tableName() {
-        return 'customer_custom_field_assignment_table';
+        return 'client_master';
     }
 
     /**
@@ -24,18 +27,15 @@ class CustomerCustomFieldAssignmentTable extends CActiveRecord {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('customer_custom_field_id, user_id', 'required'),
-            array('customer_custom_field_id, user_id', 'numerical', 'integerOnly' => true),
-            /*
-              //Example username
-              array('username', 'match', 'pattern' => '/^[A-Za-z0-9_]+$/u',
-              'message'=>'Username can contain only alphanumeric
-              characters and hyphens(-).'),
-              array('username','unique'),
-             */
-            // The following rule is used by search().
-            // @todo Please remove those attributes that should not be searched.
-            array('id, customer_custom_field_id, user_id', 'safe', 'on' => 'search'),
+            array('name, mobile_no, gender, dob', 'required'),
+            array('gender', 'numerical', 'integerOnly' => true),
+            array('name', 'length', 'max' => 45),
+            array('mobile_no', 'length', 'max' => 11),
+            array('created_at', 'safe'),
+            array('client_id, name, mobile_no, gender, dob, created_at', 'safe', 'on' => 'search'),
+            array('created_at', 'default',
+                'value' => new CDbExpression('NOW()'),
+                'setOnEmpty' => false, 'on' => 'update'),
         );
     }
 
@@ -46,9 +46,6 @@ class CustomerCustomFieldAssignmentTable extends CActiveRecord {
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-            'Customer_Custom_Fields' => array(self::BELONGS_TO, 'CustomerCustomField', 'customer_custom_field_id'),
-            'sub_data_field' => array(self::HAS_MANY, 'SubCustomerCustomFieldAssignment', 'customer_custom_field_assignment_id'),
-            'Customer_Custom_Fields' => array(self::HAS_MANY, 'CustomerCustomFieldData', 'customer_custom_field_assignment_id'),
         );
     }
 
@@ -57,9 +54,12 @@ class CustomerCustomFieldAssignmentTable extends CActiveRecord {
      */
     public function attributeLabels() {
         return array(
-            'id' => 'ID',
-            'customer_custom_field_id' => 'Customer Custom Field',
-            'user_id' => 'User',
+            'client_id' => 'Client',
+            'name' => 'Name',
+            'mobile_no' => 'Mobile No',
+            'gender' => 'Gender',
+            'dob' => 'Dob',
+            'created_at' => 'Created At',
         );
     }
 
@@ -80,9 +80,12 @@ class CustomerCustomFieldAssignmentTable extends CActiveRecord {
 
         $criteria = new CDbCriteria;
 
-        $criteria->compare('id', $this->id);
-        $criteria->compare('customer_custom_field_id', $this->customer_custom_field_id);
-        $criteria->compare('user_id', $this->user_id);
+        $criteria->compare('client_id', $this->client_id);
+        $criteria->compare('name', $this->name, true);
+        $criteria->compare('mobile_no', $this->mobile_no, true);
+        $criteria->compare('gender', $this->gender);
+        $criteria->compare('dob', $this->dob, true);
+        $criteria->compare('created_at', $this->created_at, true);
 
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
@@ -93,7 +96,7 @@ class CustomerCustomFieldAssignmentTable extends CActiveRecord {
      * Returns the static model of the specified AR class.
      * Please note that you should have this exact method in all your CActiveRecord descendants!
      * @param string $className active record class name.
-     * @return CustomerCustomFieldAssignmentTable the static model class
+     * @return ClientMaster the static model class
      */
     public static function model($className = __CLASS__) {
         return parent::model($className);
@@ -105,11 +108,15 @@ class CustomerCustomFieldAssignmentTable extends CActiveRecord {
             $userId = (int) Yii::app()->user->id;
 
         if ($this->isNewRecord) {
-            
+            $this->created_at = new CDbExpression('NOW()');
         } else {
             
         }
 
+
+        // NOT SURE RUN PLEASE HELP ME -> 
+        //$from=DateTime::createFromFormat('d/m/Y',$this->dob);
+        //$this->dob=$from->format('Y-m-d');
 
         return parent::beforeSave();
     }
@@ -123,6 +130,10 @@ class CustomerCustomFieldAssignmentTable extends CActiveRecord {
 //    }
 
     public function afterFind() {
+
+        // NOT SURE RUN PLEASE HELP ME -> 
+        //$from=DateTime::createFromFormat('Y-m-d',$this->dob);
+        //$this->dob=$from->format('d/m/Y');
 
         parent::afterFind();
     }
@@ -140,15 +151,6 @@ class CustomerCustomFieldAssignmentTable extends CActiveRecord {
 
 
         return $scope;
-    }
-
-    public function getDataFromPK() {
-        $user_id = Yii::app()->user->id;
-        $criteria = new CDbCriteria;
-        $criteria->condition = "user_id=" . $user_id;
-        return new CActiveDataProvider($this, array(
-            'criteria' => $criteria,
-        ));
     }
 
 }

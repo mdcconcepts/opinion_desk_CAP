@@ -52,15 +52,14 @@ class BranchDashboard_helper {
 
             $sqlStatement = "SELECT ROUND(AVG(`option_value`),2) AS Average_Ratting FROM "
                     . "`responce_master` WHERE `question_id` in (SELECT `id` FROM `question_master`"
-                    . " WHERE `branch_id` = :branch_id )"
-                    . " AND DATE(`created_at`) BETWEEN :from_Date AND :to_Date ";
+                    . " WHERE `branch_id` = :branch_id )";
 
             $command = $connection->createCommand($sqlStatement);
 
             $customer_id = Yii::app()->user->id;
             $command->bindParam(':branch_id', $Branch_Id, PDO::PARAM_INT);
-            $command->bindParam(':from_Date', $from_Date, PDO::PARAM_INT);
-            $command->bindParam(':to_Date', $to_Date, PDO::PARAM_INT);
+//            $command->bindParam(':from_Date', $from_Date, PDO::PARAM_INT);
+//            $command->bindParam(':to_Date', $to_Date, PDO::PARAM_INT);
 
             $command->execute();
 
