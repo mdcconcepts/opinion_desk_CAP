@@ -172,4 +172,13 @@ class QuestionMaster extends CActiveRecord {
         ));
     }
 
+    public static function getAllQuestion_Count_User() {
+        $list = Yii::app()->db->createCommand('SELECT COUNT(*) AS Total_Question_Count FROM `question_master` WHERE `branch_id` in (SELECT `id` FROM `branch_master` WHERE `customer_id`=' . Yii::app()->user->id . ')')->queryAll();
+        $Tablet_count = "";
+        foreach ($list as $item) {
+            $Tablet_count = $item['Total_Question_Count'];
+        }
+        return $Tablet_count;
+    }
+
 }

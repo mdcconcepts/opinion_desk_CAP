@@ -191,4 +191,6 @@ class BranchMaster extends CActiveRecord {
         return $Tablet_count;
     }
 
+   
+
 }

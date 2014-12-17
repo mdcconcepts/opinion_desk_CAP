@@ -470,6 +470,9 @@ class MobileServicesController extends Controller {
          */
         $headers = apache_request_headers();
 
+//        echo json_encode($headers);
+//        Yii::app()->end();
+
         // Check if we have the USERNAME and PASSWORD HTTP headers set?
         if (!(isset($headers['API_' . self::APPLICATION_ID . '_USERNAME']) and isset($headers['API_' . self::APPLICATION_ID . '_PASSWORD']))) {
             // Error: Unauthorized

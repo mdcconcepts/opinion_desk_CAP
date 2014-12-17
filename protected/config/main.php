@@ -12,7 +12,7 @@ return array(
     ),
     // preloading 'log' component
     'preload' => array('log', 'bootstrap'),
-    'theme' => 'heart',
+    'theme' => 'webpro_light',
     // autoloading model and component classes
     'import' => array(
         'application.models.*',
@@ -136,14 +136,14 @@ return array(
 //                ),
 //            ),
 //        ),
-        'bootstrap' => array(
-            'class' => 'bootstrap.components.Bootstrap',
-            'fontAwesomeCss' => true,
-            'minify' => true,
-        ),
-        'themeManager' => array(
-            'basePath' => 'protected/extensions',
-        ),
+//        'bootstrap' => array(
+//            'class' => 'bootstrap.components.Bootstrap',
+//            'fontAwesomeCss' => true,
+//            'minify' => true,
+//        ),
+//        'themeManager' => array(
+//            'basePath' => 'protected/extensions',
+//        ),
         'metadata' => array('class' => 'Metadata'),
     ),
     // application-level parameters that can be accessed

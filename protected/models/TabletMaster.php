@@ -234,4 +234,13 @@ class TabletMaster extends CActiveRecord {
         ));
     }
 
+    public static function getAllTablet_Count_User() {
+        $list = Yii::app()->db->createCommand('SELECT COUNT(*) As Total_Tablet_Count FROM `tablet_master` WHERE `branch_id` in (SELECT `id` FROM `branch_master` WHERE `customer_id`=' . Yii::app()->user->id . ')')->queryAll();
+        $Tablet_count = "";
+        foreach ($list as $item) {
+            $Tablet_count = $item['Total_Tablet_Count'];
+        }
+        return $Tablet_count;
+    }
+
 }
