@@ -109,7 +109,7 @@
                         </address>
                         <address>
                             <strong>Email</strong><br>
-                            <a href="mailto:#"><?php echo User::model()->findByPk(Yii::app()->user->id)->email; ?></a>
+                            <a href="mailto:<?php echo User::model()->findByPk(Yii::app()->user->id)->email; ?>"><?php echo User::model()->findByPk(Yii::app()->user->id)->email; ?></a>
                         </address>
                     </div>
                 </div>

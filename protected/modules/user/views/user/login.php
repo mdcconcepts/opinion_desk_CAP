@@ -6,7 +6,8 @@
             </div>
             <div style="background:#fff;">
 
-                <form action="/opinion_desk_cap/index.php/user/login" method="post"  class="form-horizontal" style="margin-bottom: 0px !important;">
+                
+                <form action="<?php echo Yii::app()->request->baseUrl; ?>/index.php/user/login" method="post"  class="form-horizontal" style="margin-bottom: 0px !important;">
 
                     <div class="porlets-content">
                         <div class="alert alert-info">   <?php echo CHtml::errorSummary($model); ?></div>

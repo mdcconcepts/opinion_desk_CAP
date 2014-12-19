@@ -35,13 +35,13 @@ class TabletMaster_childController extends Controller {
         } else {
 
 //            if (isset($_GET['pId']) and $_GET['pId'] > 0) {
-                $pId = (int) $_GET['pId'];
-                $this->render('view', array(
-                    'model' => $this->loadModel($id),
-                    'pName' => $this->pName,
-                    'pUrl' => $this->pUrl,
-                    'pId' => $pId,
-                ));
+            $pId = (int) $_GET['pId'];
+            $this->render('view', array(
+                'model' => $this->loadModel($id),
+                'pName' => $this->pName,
+                'pUrl' => $this->pUrl,
+                'pId' => $pId,
+            ));
 //            } else {
 //                $this->redirect(Yii::app()->createUrl($this->pUrl));
 //            }
@@ -111,7 +111,7 @@ class TabletMaster_childController extends Controller {
                          */
                         $transaction->commit();
                         Yii::app()->user->setFlash($messageType, $message);
-                        $this->redirect(array('view', 'id' => $model->id));
+                        $this->redirect(array('view', 'id' => $model->id, 'pId' => $pId));
                     }
                 } catch (Exception $e) {
                     $transaction->rollBack();
@@ -139,62 +139,62 @@ class TabletMaster_childController extends Controller {
     public function actionUpdate($id) {
 
 //        if (isset($_GET['pId']) and $_GET['pId'] > 0) {
-            $pId = (int) $_GET['pId'];
+        $pId = (int) $_GET['pId'];
 
 
-            $model = $this->loadModel($id);
+        $model = $this->loadModel($id);
 
-            // Uncomment the following line if AJAX validation is needed
-            // $this->performAjaxValidation($model);
+        // Uncomment the following line if AJAX validation is needed
+        // $this->performAjaxValidation($model);
 
-            if (isset($_POST['TabletMaster'])) {
-                $messageType = 'warning';
-                $message = "There are some errors ";
-                $transaction = Yii::app()->db->beginTransaction();
-                try {
-                    $model->attributes = $_POST['TabletMaster'];
-                    $messageType = 'success';
-                    $message = "<strong>Well done!</strong> You successfully update data ";
-
-                    /*
-                      $uploadFile=CUploadedFile::getInstance($model,'filename');
-                      if(!empty($uploadFile)) {
-                      $extUploadFile = substr($uploadFile, strrpos($uploadFile, '.')+1);
-                      if(!empty($uploadFile)) {
-                      if($uploadFile->saveAs(Yii::app()->basePath.DIRECTORY_SEPARATOR.'files'.DIRECTORY_SEPARATOR.'tabletmaster'.DIRECTORY_SEPARATOR.$model->id.DIRECTORY_SEPARATOR.$model->id.'.'.$extUploadFile)){
-                      $model->filename=$model->id.'.'.$extUploadFile;
-                      $message .= 'and file uploded';
-                      }
-                      else{
-                      $messageType = 'warning';
-                      $message .= 'but file not uploded';
-                      }
-                      }
-                      }
-                     */
-
-                    if ($model->save()) {
-                        $transaction->commit();
-                        Yii::app()->user->setFlash($messageType, $message);
-                        $this->redirect(array('view', 'id' => $model->id));
-                    }
-                } catch (Exception $e) {
-                    $transaction->rollBack();
-                    Yii::app()->user->setFlash('error', "{$e->getMessage()}");
-                    // $this->refresh(); 
-                }
-
+        if (isset($_POST['TabletMaster'])) {
+            $messageType = 'warning';
+            $message = "There are some errors ";
+            $transaction = Yii::app()->db->beginTransaction();
+            try {
                 $model->attributes = $_POST['TabletMaster'];
-                if ($model->save())
+                $messageType = 'success';
+                $message = "<strong>Well done!</strong> You successfully update data ";
+
+                /*
+                  $uploadFile=CUploadedFile::getInstance($model,'filename');
+                  if(!empty($uploadFile)) {
+                  $extUploadFile = substr($uploadFile, strrpos($uploadFile, '.')+1);
+                  if(!empty($uploadFile)) {
+                  if($uploadFile->saveAs(Yii::app()->basePath.DIRECTORY_SEPARATOR.'files'.DIRECTORY_SEPARATOR.'tabletmaster'.DIRECTORY_SEPARATOR.$model->id.DIRECTORY_SEPARATOR.$model->id.'.'.$extUploadFile)){
+                  $model->filename=$model->id.'.'.$extUploadFile;
+                  $message .= 'and file uploded';
+                  }
+                  else{
+                  $messageType = 'warning';
+                  $message .= 'but file not uploded';
+                  }
+                  }
+                  }
+                 */
+
+                if ($model->save()) {
+                    $transaction->commit();
+                    Yii::app()->user->setFlash($messageType, $message);
                     $this->redirect(array('view', 'id' => $model->id));
+                }
+            } catch (Exception $e) {
+                $transaction->rollBack();
+                Yii::app()->user->setFlash('error', "{$e->getMessage()}");
+                // $this->refresh(); 
             }
 
-            $this->render('update', array(
-                'model' => $model,
-                'pName' => $this->pName,
-                'pUrl' => $this->pUrl,
-                'pId' => $pId,
-            ));
+            $model->attributes = $_POST['TabletMaster'];
+            if ($model->save())
+                $this->redirect(array('view', 'id' => $model->id));
+        }
+
+        $this->render('update', array(
+            'model' => $model,
+            'pName' => $this->pName,
+            'pUrl' => $this->pUrl,
+            'pId' => $pId,
+        ));
 //        }
 //        else {
 //            $this->redirect(Yii::app()->createUrl($this->pUrl));
@@ -207,15 +207,19 @@ class TabletMaster_childController extends Controller {
      * @param integer $id the ID of the model to be deleted
      */
     public function actionDelete($id) {
-        if (Yii::app()->request->isPostRequest) {
-            // we only allow deletion via POST request
+//        if (Yii::app()->request->isPostRequest) {
+        // we only allow deletion via POST request
+        try {
             $this->loadModel($id)->delete();
-
             // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
             if (!isset($_GET['ajax']))
-                $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
-        } else
-            throw new CHttpException(400, 'Invalid request. Please do not repeat this request again.');
+                $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index', 'pId' => $_GET['pId']));
+        } catch (Exception $exc) {
+            Yii::app()->user->setFlash('error', "{$exc->getMessage()}");
+        }
+        $this->redirect(Yii::app()->request->baseUrl . '/index.php/tabletMaster_child?pId=' . $_GET['pId']);
+//        } else
+//            throw new CHttpException(400, 'Invalid request. Please do not repeat this request again.');
     }
 
     /**

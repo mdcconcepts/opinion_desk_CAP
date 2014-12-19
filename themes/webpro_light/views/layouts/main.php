@@ -39,5 +39,6 @@
                 format: 'yyyy-mm-dd'
             });
         </script>
+        <?php AssetsHelperForCustomTemplate::getJSForController() ?>
     </body>
 </html>

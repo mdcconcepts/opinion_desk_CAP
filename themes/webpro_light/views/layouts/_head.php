@@ -13,6 +13,9 @@
     <link href="<?php echo Yii::app()->theme->baseUrl; ?>/css/style-responsive.css" rel="stylesheet">
     <link href="<?php echo Yii::app()->theme->baseUrl; ?>/plugins/kalendar/kalendar.css" rel="stylesheet">
     <link href="<?php echo Yii::app()->theme->baseUrl; ?>/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
+
+    <?php AssetsHelperForCustomTemplate::getCSSForController() ?>
+    
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
